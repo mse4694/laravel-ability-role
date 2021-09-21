@@ -11,6 +11,10 @@
     <title>@yield('title')</title>
 </head>
 <body>
+    <form action="{{ url('/logout') }}" method="POST" style="display: inline;">
+        @csrf
+        <button type="submit" style="margin-right: 1rem; cursor: pointer;">Logout</button>
+    </form>
     <h1>@yield('heading')</h1>
 
     @yield('content')
