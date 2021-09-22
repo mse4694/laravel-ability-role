@@ -5,9 +5,12 @@
 
 @section('content')
 
+@can('create_case')
 <button style="margin-right: 1rem;">
     <a href="{{ url('/create') }}">New Case</a>
 </button>
+@endcan
+
 @if(session('message'))
 <span style="color: green;">{{ session('message') }}</span>
 @endif
@@ -29,7 +32,11 @@
         DISCHARGED
         @else
         <button style="margin-right: 1rem;"><a style="text-decoration: none;" href="{{ url('/triage/' . $card->id) . '/edit' }}">Triage</a></button>
+        
+        @can('exam', $card)
         <button style="margin-right: 1rem;"><a style="text-decoration: none;" href="{{ url('/exam/' . $card->id) . '/edit' }}">Exam</a></button>
+        @endcan
+        
         <form action="{{ url('/discharge/' . $card->id) }}" method="POST" style="display: inline;">
             @csrf
             @method('patch')
