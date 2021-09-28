@@ -55,13 +55,23 @@ class OPDCardPolicy
     // view_individual_case
     public function view_individual(User $user, OPDCard $opdcard) {
         if ( strcmp($user->name, "gp_md") === 0 ) {
+            //\Log::info($opdcard->TriageText);
+            // 'วิกฤต',
+            // 'ฉุกเฉิน',
+            // 'รีบด่วน',
+            // 'กึ่งรีบด่วน',
+            // 'ไม่รีบด่วน',
             return $user->abilities->contains('view_individual_case')
                     && $opdcard->triage >= 3 
                     && $opdcard->triage <= 5; 
+            // return $user->abilities->contains('view_individual_case')
+            //         && ( (strcmp($opdcard->TriageText, "รีบด่วน") === 0) || (strcmp($opdcard->TriageText, "กึ่งรีบด่วน") === 0) || (strcmp($opdcard->TriageText, "ไม่รีบด่วน") === 0));
         } elseif ( strcmp($user->name, "er_md") === 0 ) {
             return $user->abilities->contains('view_individual_case') 
                     && $opdcard->triage >= 1
                     && $opdcard->triage <= 2;
+            // return $user->abilities->contains('view_individual_case')
+            //         && ( (strcmp($opdcard->TriageText, "วิกฤต") === 0) || (strcmp($opdcard->TriageText, "ฉุกเฉิน") === 0) );
         } else {
             return $user->abilities->contains('view_individual_case');
         }

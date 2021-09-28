@@ -78,4 +78,7 @@
 @endcan 
 @endforeach
 
+<script>
+    var opdcardsJSON = @json($opdcardsJSON);
+</script>
 @endsection
